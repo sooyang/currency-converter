@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StatusBar } from 'react-native';
+import { View, StatusBar, KeyboardAvoidingView } from 'react-native';
 
 import { Container } from '../components/Container';
 import { Logo } from '../components/Logo';
@@ -40,6 +40,7 @@ class Home extends Component {
 			<Container>
 				<StatusBar translucent={false} barStyle="light-content" />
 				<Header onPress={this.handleOptionsPress}/>
+				<KeyboardAvoidingView behavior="padding">
 				<Logo />
 				<InputWithButton 
 					buttonText={TEMP_BASE_CURRENCY}
@@ -64,6 +65,7 @@ class Home extends Component {
 					text="Reverse Currencies"
 					onPress={this.handleSwapCurrency}
 				/>
+				</KeyboardAvoidingView>
 			</Container>
 		)
 	}
