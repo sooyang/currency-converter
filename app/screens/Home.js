@@ -9,7 +9,7 @@ import {LastConverted} from '../components/Text';
 import { Header } from '../components/Header';
 import PropTypes from 'prop-types';
 
-import {swapCurrency, changeCurrencyAmount} from '../actions/currencies';
+import {swapCurrency, changeCurrencyAmount, getInitialConversion} from '../actions/currencies';
 import {connect} from 'react-redux';
 
 const TEMP_CONVERSION_DATE = new Date();
@@ -25,6 +25,10 @@ class Home extends Component {
 		isFetching: PropTypes.bool,
 		lastConvertedDate: PropTypes.object,
 		primaryColor: PropTypes.string,
+	}
+
+	componentWillMount() {
+		this.props.dispatch(getInitialConversion())
 	}
 	handlePressBaseCurrency = () => {
 		console.log('press base');
@@ -94,7 +98,7 @@ class Home extends Component {
 const mapStateToProps = (state) => {
 	const baseCurrency = state.currencies.baseCurrency;
 	const quoteCurrency = state.currencies.quoteCurrency;
-	const conversionSelector = state.currencies.conversions[baseCurrency] || {};
+	const conversionSelector = state.currencies.conversion[baseCurrency] || {};
 	const rates = conversionSelector.rates || {};
 
 	return {
