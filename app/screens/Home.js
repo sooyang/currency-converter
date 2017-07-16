@@ -10,7 +10,7 @@ import { Header } from '../components/Header';
 import PropTypes from 'prop-types';
 
 import {swapCurrency, changeCurrencyAmount} from '../actions/currencies';
-
+import {connect} from 'react-redux';
 
 const TEMP_BASE_CURRENCY = 'USD';
 const TEMP_QUOTE_CURRENCY = 'GBP';
@@ -22,6 +22,7 @@ const TEMP_CONVERSION_DATE = new Date();
 class Home extends Component {
 	static propTypes = {
 		navigation: PropTypes.object,
+		dispatch: PropTypes.func,
 	}
 	handlePressBaseCurrency = () => {
 		console.log('press base');
@@ -33,13 +34,12 @@ class Home extends Component {
 		this.props.navigation.navigate('CurrencyList', {title: 'Quote Currency'})
 	}
 
-	handleTextChange = (amount) => {
-		console.log(changeCurrencyAmount(amount));
+	handleTextChange = (text) => {
+		this.props.dispatch(changeCurrencyAmount(text));
 	}
 
 	handleSwapCurrency = () => {
-		// todo: make this work with this.props.dispatch
-		console.log(swapCurrency());
+		this.props.dispatch(swapCurrency());
 	}
 
 	handleOptionsPress = () => {
@@ -82,4 +82,4 @@ class Home extends Component {
 	}
 }
 
-export default Home;
+export default connect()(Home);
